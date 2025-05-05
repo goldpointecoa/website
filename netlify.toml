@@ -51,17 +51,5 @@
 
 # Build configuration
 [build]
-  publish = "."
+  publish = "public"
   command = ""
-
-# Exclude admin tools and original resources file from sitemap
-[[plugins]]
-  package = "@netlify/plugin-sitemap"
-
-  [plugins.inputs]
-    exclude = [
-      "resources-original.html",
-      "admin-encrypt.html",
-      "README.md",
-      "404.html"
-    ]
