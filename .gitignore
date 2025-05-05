@@ -1,0 +1,11 @@
+# Exclude the original resources file to avoid it being deployed
+resources-original.html
+
+# Exclude the admin tools from being deployed
+admin/
+admin-encrypt.html
+encrypt-resources.js
+
+# Other common files to ignore
+.DS_Store
+node_modules/

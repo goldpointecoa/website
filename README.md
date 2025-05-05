@@ -108,11 +108,38 @@ The resources page is designed to be password-protected using StatiCrypt, which 
 
 ### Updating Protected Content
 
-When you need to update the content in the resources page:
+When you need to update the content in the resources page, you have two options:
 
-1. Make changes to the original resources.html file
-2. Re-encrypt the page using one of the methods above
+#### Option 1: Using the Admin Dashboard (Recommended)
+
+1. Navigate to the admin dashboard at `admin.html` (local) or your-site.com/admin.html (production)
+2. Go to the "Edit Resources" tab
+3. Click "Load Content" to load the current resources page content
+4. Make your changes to the HTML content
+5. Click "Save Changes" to download the updated `resources-original.html` file
+6. Replace the existing `resources-original.html` with this downloaded file
+7. Go to the "Encrypt Resources" tab
+8. Enter the password (default is "goldpointe2025")
+9. Click "Encrypt Resources Page"
+10. A download will start with the encrypted version of `resources.html`
+11. Replace the existing `resources.html` file with this downloaded file
+
+The admin dashboard makes it easy to:
+- Edit the content without editing the HTML file directly
+- Preview the resources page before encrypting it
+- Encrypt the page with one click
+
+#### Option 2: Manual Update
+
+1. Make changes to the `resources-original.html` file 
+2. Re-encrypt the page using one of the encryption methods described above
 3. Replace the encrypted version with the new encrypted file
+
+#### Important Notes About Resources Page Updates
+
+- The file `resources-original.html` contains the unencrypted content and is **not** deployed to your website (it's in the .gitignore file)
+- The file `resources.html` is the encrypted version that visitors see on your website
+- Always keep a backup of `resources-original.html` to make future updates easier
 
 ## Netlify Form Integration
 

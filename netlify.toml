@@ -1,0 +1,33 @@
+# Netlify configuration for Gold Pointe COA website
+
+# Headers to enable form handling
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Redirect rules for SPA-like navigation (if needed)
+[[redirects]]
+  from = "/contact-success"
+  to = "/contact-success.html"
+  status = 200
+
+# Exclude admin/utility files from deployment
+[build]
+  publish = "."
+  command = ""
+
+# Explicitly exclude admin files and resources-original.html from deployment
+[[plugins]]
+  package = "@netlify/plugin-sitemap"
+
+  [plugins.inputs]
+    exclude = [
+      "resources-original.html",
+      "admin.html",
+      "admin-encrypt.html",
+      "encrypt-resources.js"
+    ]
