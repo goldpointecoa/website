@@ -1,6 +1,4 @@
 # Common system and editor files to ignore
-resources-original.html
-admin-encrypt.html
 # The netlify.toml file handles preventing sensitive files from being accessible
 
 # Other common files to ignore

@@ -6,7 +6,7 @@
     <title>Encrypt Resources Page - Gold Pointe COA</title>
     <!-- CryptoJS library for encryption -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script src="public/js/staticrypt.js"></script>
+    <script src="js/staticrypt.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -134,7 +134,7 @@
                 showStatus('Loading resources-original.html and encrypting...', 'success');
                 
                 try {
-                    // Try to fetch the resources-original.html file from root
+                    // Try to fetch the resources-original.html file
                     const response = await fetch('resources-original.html');
                     
                     if (!response.ok) {
