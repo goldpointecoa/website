@@ -496,6 +496,28 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.2);
 }
 
+/* Form success message */
+.form-success {
+    text-align: center;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    margin-top: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.form-success i {
+    font-size: 3rem;
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* ----------- */
 /* FOOTER */
 /* ----------- */
