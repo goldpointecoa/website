@@ -14,6 +14,8 @@ cp index.html about.html contact.html contact-success.html 404.html public/
 cp -f *.png *.ico *.svg public/ 2>/dev/null || true
 cp -f _redirects netlify.toml public/
 
+# Nothing needed here
+
 # Use resources-original.html as the source and encrypt it for the public directory
 echo "Encrypting resources page with password: goldpointe2025"
 node -e "
@@ -36,6 +38,7 @@ const protectedPage = \`
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Protected: Resources - Gold Pointe Condo Owner's Association</title>
     <link rel='stylesheet' href='css/styles.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js'></script>
 </head>
 <body>
