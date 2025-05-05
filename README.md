@@ -112,7 +112,7 @@ When you need to update the content in the resources page, you have two options:
 
 #### Option 1: Using the Admin Dashboard (Recommended)
 
-1. Navigate to the admin dashboard at `admin.html` (local) or your-site.com/admin.html (production)
+1. Navigate to the admin dashboard at `admin.html` (only available when working locally)
 2. Go to the "Edit Resources" tab
 3. Click "Load Content" to load the current resources page content
 4. Make your changes to the HTML content
@@ -123,24 +123,15 @@ When you need to update the content in the resources page, you have two options:
 9. Click "Encrypt Resources Page"
 10. A download will start with the encrypted version of `resources.html`
 11. Replace the existing `resources.html` file with this downloaded file
+12. Commit and push your changes to deploy the updated encrypted page
 
 The admin dashboard makes it easy to:
 - Edit the content without editing the HTML file directly
 - Preview the resources page before encrypting it
 - Encrypt the page with one click
 
-**Note about accessing admin.html on Netlify:**
-The admin interface is password-protected on Netlify using Netlify Identity and Role-based access control. To set it up:
-
-1. After deploying to Netlify, go to your site's Netlify admin panel
-2. Navigate to Settings > Identity and click "Enable Identity"
-3. Under Identity > Services, enable "Git Gateway"
-4. Under Identity > Settings, set Registration to "Invite only"
-5. Invite yourself (and any other admins) via email
-6. After accepting the invitation, go to Identity > Role-based access control
-7. Create a new role called "admin" and assign it to your account
-
-After this setup, when you visit your-site.com/admin.html, you'll be prompted to login with your Netlify Identity credentials.
+**Note about admin.html access:**
+For security reasons, the admin.html file is excluded from deployment (in .gitignore and netlify.toml), so it's only available when working on the site locally. This is intentional to keep the admin interface secure and private.
 
 #### Option 2: Manual Update
 

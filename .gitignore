@@ -1,7 +1,8 @@
 # Exclude the original resources file to avoid it being deployed
 resources-original.html
 
-# Exclude old admin tools (if they exist)
+# Exclude admin tools from being deployed
+admin.html
 admin-encrypt.html
 encrypt-resources.js
 

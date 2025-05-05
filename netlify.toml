@@ -15,26 +15,19 @@
   to = "/contact-success.html"
   status = 200
 
-# Password protection for admin interface
-[[redirects]]
-  from = "/admin.html"
-  to = "/admin.html"
-  status = 200
-  force = true
-  conditions = {Role = ["admin"]}
-
 # Build configuration
 [build]
   publish = "."
   command = ""
 
-# Exclude original resources file from sitemap but allow admin.html
+# Exclude admin tools and original resources file from sitemap
 [[plugins]]
   package = "@netlify/plugin-sitemap"
 
   [plugins.inputs]
     exclude = [
       "resources-original.html",
+      "admin.html",
       "admin-encrypt.html",
       "encrypt-resources.js"
     ]
