@@ -29,5 +29,6 @@
       "resources-original.html",
       "admin.html",
       "admin-encrypt.html",
-      "encrypt-resources.js"
+      "encrypt-resources.js",
+      "README.md"
     ]
