@@ -131,7 +131,7 @@ The admin dashboard makes it easy to:
 - Encrypt the page with one click
 
 **Note about admin.html access:**
-For security reasons, the admin.html file is protected from public access through redirects in the netlify.toml file. The file will be deployed with your site, but attempts to access it on the live site will be redirected to the 404 page. It's only meant to be used when working on the site locally.
+For security reasons, the admin.html file is excluded from the production build through a custom build script. It will not be deployed to your live site at all. The admin interface is only meant to be used when working on the site locally.
 
 #### Option 2: Manual Update
 

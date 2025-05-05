@@ -1,0 +1,24 @@
+# Redirect rules for Netlify
+
+# Prevent access to admin tools
+/admin              /404.html            404
+/admin.html         /404.html            404
+/admin/             /404.html            404
+
+# Prevent access to original resources file
+/resources-original.html     /404.html   404
+/resources-original          /404.html   404
+
+# Prevent access to README and other development files
+/README.md          /404.html            404
+/README             /404.html            404
+/encrypt-resources.js  /404.html         404
+/.gitignore         /404.html            404
+/netlify.toml       /404.html            404
+/_redirects         /404.html            404
+
+# Standard redirects
+/contact-success    /contact-success.html  200
+
+# Default 404 handling
+/*                  /404.html              404!

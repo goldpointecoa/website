@@ -9,43 +9,17 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# Prevent access to admin.html - redirect to 404
-[[redirects]]
-  from = "/admin.html"
-  to = "/404.html"
-  status = 404
-  force = true
-
-# Prevent access to README.md - redirect to 404
-[[redirects]]
-  from = "/README.md"
-  to = "/404.html"
-  status = 404
-  force = true
-
-# Prevent access to resources-original.html - redirect to 404
-[[redirects]]
-  from = "/resources-original.html"
-  to = "/404.html"
-  status = 404
-  force = true
-
-# Redirect rules for contact success page
+# Redirect rules for SPA-like navigation
 [[redirects]]
   from = "/contact-success"
   to = "/contact-success.html"
   status = 200
 
-# Custom 404 page configuration
-[[redirects]]
-  from = "/*"
-  to = "/404.html"
-  status = 404
-
 # Build configuration
 [build]
-  publish = "."
-  command = ""
+  # Use the public directory created by our build script
+  publish = "public"
+  command = "bash build.sh"
 
 # Exclude admin tools and original resources file from sitemap
 [[plugins]]
@@ -54,6 +28,7 @@
   [plugins.inputs]
     exclude = [
       "resources-original.html",
+      "admin",
       "admin.html",
       "encrypt-resources.js",
       "README.md"
