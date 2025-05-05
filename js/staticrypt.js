@@ -310,39 +310,10 @@ function encryptContent(content, password) {
  */
 async function encryptResourcesPage(password) {
     try {
-        // Get the resources-original.html content instead of resources.html
-        // This is to ensure we always encrypt the original content
-        const response = await fetch('resources-original.html');
+        // Get the resources.html content
+        const response = await fetch('resources.html');
         if (!response.ok) {
-            // Fallback to resources.html if resources-original.html is not available
-            console.log('resources-original.html not found, trying resources.html');
-            const fallbackResponse = await fetch('resources.html');
-            if (!fallbackResponse.ok) {
-                throw new Error('Failed to fetch resources.html or resources-original.html');
-            }
-            const fallbackContent = await fallbackResponse.text();
-            const encryptedFallback = await encryptContent(fallbackContent, password);
-            
-            // Just create the download directly since we're returning early
-            const blob = new Blob([encryptedFallback], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'resources.html';
-            a.style.display = 'none';
-            
-            document.body.appendChild(a);
-            a.click();
-            
-            // Clean up
-            setTimeout(() => {
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }, 100);
-            
-            console.log('Resources page encrypted successfully. Download should start automatically.');
-            return; // End function early
+            throw new Error('Failed to fetch resources.html');
         }
         
         const content = await response.text();

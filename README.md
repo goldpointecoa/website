@@ -27,10 +27,8 @@ This repository contains the source code for the official website of Gold Pointe
 gold-pointe-coa-website/
 ├── index.html              # Home page
 ├── about.html              # About page
-├── resources.html          # Encrypted resources page
-├── resources-original.html # Original unencrypted resources content
+├── resources.html          # Resources page (to be encrypted)
 ├── contact.html            # Contact page with Netlify form
-├── thank-you.html          # Thank you page for contact form
 ├── admin-encrypt.html      # Admin tool to encrypt resources page
 ├── encrypt-resources.js    # Script for resources page encryption
 ├── css/
@@ -112,21 +110,9 @@ The resources page is designed to be password-protected using StatiCrypt, which 
 
 When you need to update the content in the resources page:
 
-1. Make changes to the `resources-original.html` file
+1. Make changes to the original resources.html file
 2. Re-encrypt the page using one of the methods above
 3. Replace the encrypted version with the new encrypted file
-
-You can also use the command line script for automated encryption:
-
-```
-# With default password
-node encrypt-resources.js
-
-# With custom password
-node encrypt-resources.js mypassword
-```
-
-This is particularly useful for deployment scripts or CI/CD pipelines.
 
 ## Netlify Form Integration
 

@@ -78,7 +78,7 @@
             <div class="contact-form">
                 <h3>Send Us a Message</h3>
                 <!-- Netlify integrated contact form -->
-                <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
+                <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
                     <p class="hidden">
                         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
                     </p>
@@ -106,27 +106,20 @@
                             <option value="Maintenance Request">Maintenance Request</option>
                             <option value="Payment Question">Payment Question</option>
                             <option value="Board Matter">Board Matter</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="resident_type">Resident Type</label>
-                        <select id="resident_type" name="resident_type" required>
-                            <option value="">-- Select resident type --</option>
-                            <option value="Owner">Owner</option>
-                            <option value="Tenant">Tenant</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="unit_number">Unit Number</label>
-                        <input type="text" id="unit_number" name="unit_number" required>
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
                     </div>
                     
                     <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="owner" value="yes">
+                            I am a Gold Pointe condo owner
+                        </label>
                     </div>
                     
                     <button type="submit" class="btn">Send Message</button>

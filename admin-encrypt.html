@@ -75,7 +75,7 @@
     <main>
         <div class="admin-container">
             <h2>Encrypt Resources Page</h2>
-            <p>Use this tool to encrypt the resources page with a password. This tool will automatically use the <code>resources-original.html</code> file as the source for encryption. The encrypted version will be downloaded, and you will need to replace the existing resources.html file with this downloaded file.</p>
+            <p>Use this tool to encrypt the resources page with a password. The current tool will download the encrypted version which you will need to upload to replace the existing resources.html file.</p>
             
             <div class="form-group">
                 <label for="password">Password</label>
@@ -170,7 +170,7 @@
             });
             
             viewBtn.addEventListener('click', function() {
-                window.open('resources-original.html', '_blank');
+                window.open('resources.html', '_blank');
             });
             
             function showStatus(message, type) {

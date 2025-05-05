@@ -1,44 +1,47 @@
-// Command line utility to encrypt the resources page
-// Usage: node encrypt-resources.js [password]
-// If no password is provided, it will use the default 'goldpointe2025'
+/**
+ * Simple script to encrypt the resources.html page with StatiCrypt
+ * 
+ * This script can be used in two ways:
+ * 1. Include it in a webpage and call encryptWithPassword() function
+ * 2. Run it directly from the browser console
+ */
 
-const fs = require('fs');
-const path = require('path');
-const StaticryptFunctions = require('./js/staticrypt');
+// Load required libraries
+document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>');
+document.write('<script src="js/staticrypt.js"></script>');
 
 /**
  * Encrypt the resources page with the given password
  * @param {string} password - The password to use for encryption
  */
 async function encryptWithPassword(password = 'goldpointe2025') {
-    console.log(`Encrypting resources page with password: ${password}`);
-
     try {
-        // Read the resources-original.html file
-        let content;
-        try {
-            content = fs.readFileSync('resources-original.html', 'utf8');
-            console.log('Using resources-original.html as source');
-        } catch (err) {
-            // Fallback to resources.html if resources-original.html doesn't exist
-            console.log('resources-original.html not found, using resources.html as source');
-            content = fs.readFileSync('resources.html', 'utf8');
+        console.log('Starting encryption process...');
+        
+        // Check if StaticryptFunctions is available
+        if (typeof StaticryptFunctions === 'undefined') {
+            console.error('StaticryptFunctions not found. Make sure staticrypt.js is loaded.');
+            return;
         }
-
-        // Encrypt the content
-        const encryptedHtml = await StaticryptFunctions.encryptContent(content, password);
-
-        // Write the encrypted content to resources.html
-        fs.writeFileSync('resources.html', encryptedHtml);
-        console.log('Resources page encrypted successfully!');
-        console.log('Encrypted file saved to: resources.html');
-
+        
+        // Encrypt the resources page
+        await StaticryptFunctions.encryptResourcesPage(password);
+        
+        console.log('Encryption complete. The encrypted file has been downloaded.');
+        console.log('Replace your resources.html file with the downloaded file.');
     } catch (error) {
-        console.error('Error encrypting resources page:', error);
-        process.exit(1);
+        console.error('Error during encryption:', error);
     }
 }
 
-// Get the password from command line arguments or use default
-const password = process.argv[2] || 'goldpointe2025';
-encryptWithPassword(password);
+// Self-executing function to allow console usage
+(function() {
+    if (typeof window !== 'undefined') {
+        // Make the function available globally
+        window.encryptResourcesPage = encryptWithPassword;
+        
+        // Add message for console users
+        console.log('To encrypt resources.html, run: encryptResourcesPage("your-password")');
+        console.log('Or use the default password (goldpointe2025) by running: encryptResourcesPage()');
+    }
+})();
