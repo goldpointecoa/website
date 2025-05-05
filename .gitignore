@@ -1,8 +1,5 @@
-# Exclude sensitive files from being deployed
-resources-original.html
-admin.html
-admin-encrypt.html
-encrypt-resources.js
+# Common system and editor files to ignore
+# The netlify.toml file handles preventing sensitive files from being accessible
 
 # Other common files to ignore
 .DS_Store

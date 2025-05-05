@@ -131,7 +131,7 @@ The admin dashboard makes it easy to:
 - Encrypt the page with one click
 
 **Note about admin.html access:**
-For security reasons, the admin.html file is excluded from deployment (in .gitignore and netlify.toml), so it's only available when working on the site locally. This is intentional to keep the admin interface secure and private.
+For security reasons, the admin.html file is protected from public access through redirects in the netlify.toml file. The file will be deployed with your site, but attempts to access it on the live site will be redirected to the 404 page. It's only meant to be used when working on the site locally.
 
 #### Option 2: Manual Update
 
@@ -141,7 +141,7 @@ For security reasons, the admin.html file is excluded from deployment (in .gitig
 
 #### Important Notes About Resources Page Updates
 
-- The file `resources-original.html` contains the unencrypted content and is **not** deployed to your website (it's in the .gitignore file)
+- The file `resources-original.html` contains the unencrypted content and is automatically redirected to a 404 page if anyone tries to access it on the live site
 - The file `resources.html` is the encrypted version that visitors see on your website
 - Always keep a backup of `resources-original.html` to make future updates easier
 
@@ -160,6 +160,19 @@ To set up email notifications for form submissions:
 2. Go to Site settings > Forms > Form notifications
 3. Add a notification for the "contact" form
 4. Select "Email notification" and enter your email address
+
+## Custom 404 Page
+
+The site includes a custom 404 page that:
+- Maintains the same design and navigation as the rest of the site
+- Displays a friendly error message
+- Provides a link back to the homepage
+
+This page will be shown in two scenarios:
+1. When a visitor tries to access a page that doesn't exist
+2. When someone attempts to access restricted files (admin.html, resources-original.html, etc.)
+
+The 404 page is automatically configured in the netlify.toml file.
 
 ## Deployment
 
