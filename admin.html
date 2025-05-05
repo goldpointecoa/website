@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- CryptoJS library for encryption -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- StatiCrypt script -->
+    <script src="js/staticrypt.js"></script>
     <style>
         .admin-container {
             max-width: 1000px;
@@ -49,49 +51,52 @@
             color: #0c5460;
             border: 1px solid #bee5eb;
         }
-        
-        .resource-editor {
+
+        .editor-container {
+            display: none;
+            margin-top: 30px;
+        }
+
+        #editor {
             width: 100%;
             min-height: 400px;
             font-family: monospace;
             padding: 10px;
-            margin-top: 20px;
             border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
         }
-        
-        .tab-navigation {
+
+        .tabs {
             display: flex;
             margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
         }
-        
-        .tab-button {
+
+        .tab {
             padding: 10px 20px;
-            background-color: #f5f5f5;
-            border: none;
-            border-radius: 5px 5px 0 0;
             cursor: pointer;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
             margin-right: 5px;
         }
-        
-        .tab-button.active {
-            background-color: var(--primary-color);
-            color: white;
+
+        .tab.active {
+            background-color: white;
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: bold;
         }
-        
-        .tab-content {
+
+        .admin-section {
             display: none;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 0 4px 4px 4px;
         }
-        
-        .tab-content.active {
+
+        .admin-section.active {
             display: block;
-        }
-        
-        .step {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
         }
     </style>
 </head>
@@ -108,107 +113,94 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="resources-original.html">Resources (Source)</a></li>
+                <li><a href="resources.html">Resources</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="admin.html" class="active">Admin</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="container">
-        <section class="page-header">
-            <h2>Admin Dashboard</h2>
-            <p>Manage website content and settings</p>
-        </section>
-
+    <main>
         <div class="admin-container">
-            <div class="tab-navigation">
-                <button class="tab-button active" data-tab="edit">Edit Resources</button>
-                <button class="tab-button" data-tab="test-build">Test Build</button>
-                <button class="tab-button" data-tab="help">Help</button>
+            <h2>Admin Dashboard</h2>
+            <p>Use this tool to manage the password-protected resources page.</p>
+            
+            <div class="tabs">
+                <div class="tab active" data-section="encrypt">Encrypt Resources</div>
+                <div class="tab" data-section="edit">Edit Resources</div>
+                <div class="tab" data-section="preview">Preview Original</div>
+                <div class="tab" data-section="help">Help</div>
             </div>
             
-            <!-- Edit Tab -->
-            <div id="edit" class="tab-content active">
-                <h3>Edit Resources Page</h3>
-                <p>Make changes to the resources page content. This edits the original unencrypted version.</p>
-                
-                <button id="loadContentBtn" class="btn">Load Current Content</button>
-                
-                <textarea id="resourceEditor" class="resource-editor" placeholder="Resources page content will appear here..."></textarea>
-                
-                <div class="btn-group">
-                    <button id="saveContentBtn" class="btn">Save Changes</button>
-                </div>
-                
-                <div id="editStatusMessage" class="status-message"></div>
-            </div>
-            
-            <!-- Test Build Tab -->
-            <div id="test-build" class="tab-content">
-                <h3>Test Build Process</h3>
-                <p>Preview how the build process will encrypt the resources page for production.</p>
+            <div class="admin-section active" id="encrypt-section">
+                <h3>Encrypt Resources Page</h3>
+                <p>Here you can encrypt the resources page with a password. This will take the content from resources-original.html, encrypt it, and save it as resources.html.</p>
                 
                 <div class="form-group">
-                    <label for="password">Password for encryption:</label>
-                    <input type="password" id="password" value="goldpointe2025" class="form-control">
-                    <small>Default: goldpointe2025</small>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" value="goldpointe2025" class="password-input">
                 </div>
                 
-                <button id="testBuildBtn" class="btn">Run Test Build</button>
+                <div class="btn-group">
+                    <button id="encrypt-btn" class="btn">Encrypt Resources Page</button>
+                    <button id="view-original-btn" class="btn secondary">View Original</button>
+                    <button id="view-encrypted-btn" class="btn secondary">View Encrypted</button>
+                </div>
                 
-                <div id="buildStatusMessage" class="status-message"></div>
+                <div id="encrypt-status" class="status-message"></div>
             </div>
             
-            <!-- Help Tab -->
-            <div id="help" class="tab-content">
-                <h3>Admin Dashboard Help</h3>
+            <div class="admin-section" id="edit-section">
+                <h3>Edit Resources Content</h3>
+                <p>Make changes to the original resources page content below. Remember to save your changes and then encrypt the page afterwards.</p>
                 
-                <h4>How the New Process Works</h4>
-                <p>This website now uses a more streamlined process for handling secure content:</p>
-                
-                <div class="step">
-                    <strong>1. Local Development</strong>
-                    <p>During development, you work with <code>resources-original.html</code> directly - which contains all your unencrypted content.</p>
+                <div class="editor-container" style="display: block;">
+                    <textarea id="editor"></textarea>
                 </div>
                 
-                <div class="step">
-                    <strong>2. Build Process</strong>
-                    <p>Our <code>build.sh</code> script automatically:</p>
-                    <ul>
-                        <li>Creates a <code>public</code> directory for deployment</li>
-                        <li>Copies all necessary files into this directory</li>
-                        <li>Encrypts <code>resources-original.html</code> and saves it as <code>public/resources.html</code></li>
-                        <li>Excludes sensitive files like <code>admin.html</code></li>
-                    </ul>
+                <div class="btn-group">
+                    <button id="load-content-btn" class="btn secondary">Load Content</button>
+                    <button id="save-content-btn" class="btn">Save Changes</button>
                 </div>
                 
-                <div class="step">
-                    <strong>3. Deployment</strong>
-                    <p>When you deploy to Netlify:</p>
-                    <ul>
-                        <li>Only the contents of the <code>public</code> directory are published</li>
-                        <li>Sensitive files remain in your Git repository but aren't deployed</li>
-                        <li>Visitors can only access the encrypted version of the resources page</li>
-                    </ul>
+                <div id="edit-status" class="status-message"></div>
+            </div>
+            
+            <div class="admin-section" id="preview-section">
+                <h3>Preview Original Resources Page</h3>
+                <p>This shows a preview of the original resources page (resources-original.html) before encryption.</p>
+                
+                <div class="btn-group">
+                    <button id="load-preview-btn" class="btn">Load Preview</button>
                 </div>
                 
-                <h4>How to Make Updates</h4>
+                <div id="preview-container" style="margin-top: 20px; border: 1px solid #ddd; padding: 20px; min-height: 300px;">
+                    <p>Click "Load Preview" to see the current resources page content.</p>
+                </div>
+            </div>
+            
+            <div class="admin-section" id="help-section">
+                <h3>How to Update the Resources Page</h3>
+                
+                <h4>Workflow for Updating the Resources Page</h4>
                 <ol>
-                    <li>Use the "Edit Resources" tab to modify <code>resources-original.html</code></li>
-                    <li>Save your changes</li>
-                    <li>Commit all changes to Git</li>
-                    <li>Deploy to Netlify - the build script will handle everything</li>
+                    <li>Go to the "Edit Resources" tab</li>
+                    <li>Click "Load Content" to load the current version</li>
+                    <li>Make your changes to the HTML content</li>
+                    <li>Click "Save Changes" to update resources-original.html</li>
+                    <li>Go to the "Encrypt Resources" tab</li>
+                    <li>Enter the password (default is "goldpointe2025")</li>
+                    <li>Click "Encrypt Resources Page"</li>
+                    <li>A download will start with the encrypted version of resources.html</li>
+                    <li>Replace the existing resources.html file with this downloaded file</li>
                 </ol>
                 
-                <h4>Password Management</h4>
-                <p>The password "goldpointe2025" is set in the <code>build.sh</code> script. To change it:</p>
-                <ol>
-                    <li>Open <code>build.sh</code></li>
-                    <li>Find the line <code>const password = 'goldpointe2025';</code></li>
-                    <li>Change it to your desired password</li>
-                    <li>Save and commit the change</li>
-                </ol>
+                <h4>Important Notes</h4>
+                <ul>
+                    <li>The file resources-original.html is your master file that you should edit</li>
+                    <li>The file resources.html is the encrypted version that visitors will see</li>
+                    <li>You can preview the original page before encrypting using the "Preview Original" tab</li>
+                    <li>When deploying to Netlify, resources-original.html will not be included (it's in the .gitignore file)</li>
+                </ul>
             </div>
         </div>
     </main>
@@ -236,94 +228,248 @@
         </div>
     </footer>
 
+    <script src="js/main.js"></script>
     <script>
-        // Tab functionality
-        document.querySelectorAll('.tab-button').forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons and content
-                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-                
-                // Add active class to clicked button and corresponding content
-                button.classList.add('active');
-                document.getElementById(button.dataset.tab).classList.add('active');
-            });
-        });
-        
-        // Show status message
-        function showStatus(elementId, message, type) {
-            const statusElement = document.getElementById(elementId);
-            statusElement.textContent = message;
-            statusElement.className = 'status-message ' + type;
-            statusElement.style.display = 'block';
-        }
-        
-        // Load content button
-        document.getElementById('loadContentBtn').addEventListener('click', async () => {
-            try {
-                const response = await fetch('resources-original.html');
-                if (!response.ok) {
-                    throw new Error('Failed to load content: ' + response.status);
-                }
-                const content = await response.text();
-                document.getElementById('resourceEditor').value = content;
-                showStatus('editStatusMessage', 'Content loaded successfully.', 'success');
-            } catch (error) {
-                showStatus('editStatusMessage', error.message, 'error');
-            }
-        });
-        
-        // Save content button
-        document.getElementById('saveContentBtn').addEventListener('click', () => {
-            const content = document.getElementById('resourceEditor').value;
-            if (!content) {
-                showStatus('editStatusMessage', 'Nothing to save. Please load content first.', 'error');
-                return;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
             }
             
-            // Download the file
-            const blob = new Blob([content], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'resources-original.html';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            // Add current year to footer copyright
+            const yearElement = document.querySelector('.footer-bottom p');
+            if (yearElement) {
+                const currentYear = new Date().getFullYear();
+                yearElement.innerHTML = yearElement.innerHTML.replace('2023', currentYear);
+            }
             
-            showStatus('editStatusMessage', 'File downloaded. Please replace resources-original.html with this file.', 'success');
-        });
-        
-        // Test build button
-        document.getElementById('testBuildBtn').addEventListener('click', async () => {
-            try {
-                const password = document.getElementById('password').value;
-                if (!password) {
-                    throw new Error('Please enter a password for encryption');
-                }
-                
-                // Fetch the original content
-                const response = await fetch('resources-original.html');
-                if (!response.ok) {
-                    throw new Error('Failed to load resources-original.html: ' + response.status);
-                }
-                const content = await response.text();
-                
-                // Simple encryption test using CryptoJS (similar to what build.sh does)
-                const encrypted = CryptoJS.AES.encrypt(content, password).toString();
-                
-                showStatus('buildStatusMessage', 
-                    `Test successful! In production, the build script will:\n
-                    1. Create the public directory
-                    2. Copy all necessary files
-                    3. Encrypt resources-original.html to public/resources.html with password: ${password}
-                    4. Deploy only the public directory
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
                     
-                    Your content (${content.length} characters) was successfully encrypted for testing.`, 
-                    'success');
-            } catch (error) {
-                showStatus('buildStatusMessage', 'Build test failed: ' + error.message, 'error');
+                    // Hide all sections
+                    document.querySelectorAll('.admin-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // Show the corresponding section
+                    const sectionId = tab.getAttribute('data-section') + '-section';
+                    document.getElementById(sectionId).classList.add('active');
+                });
+            });
+            
+            // Encryption functionality
+            const encryptBtn = document.getElementById('encrypt-btn');
+            const viewOriginalBtn = document.getElementById('view-original-btn');
+            const viewEncryptedBtn = document.getElementById('view-encrypted-btn');
+            const passwordInput = document.getElementById('password');
+            const encryptStatus = document.getElementById('encrypt-status');
+            
+            // Edit functionality
+            const editor = document.getElementById('editor');
+            const loadContentBtn = document.getElementById('load-content-btn');
+            const saveContentBtn = document.getElementById('save-content-btn');
+            const editStatus = document.getElementById('edit-status');
+            
+            // Preview functionality
+            const loadPreviewBtn = document.getElementById('load-preview-btn');
+            const previewContainer = document.getElementById('preview-container');
+            
+            // Encryption section buttons
+            if (encryptBtn) {
+                encryptBtn.addEventListener('click', async function() {
+                    const password = passwordInput.value.trim();
+                    
+                    if (!password) {
+                        showStatus(encryptStatus, 'Please enter a password.', 'error');
+                        return;
+                    }
+                    
+                    showStatus(encryptStatus, 'Encrypting resources page...', 'info');
+                    
+                    try {
+                        // First, try to load resources-original.html
+                        const originalResponse = await fetch('resources-original.html');
+                        let content;
+                        
+                        if (originalResponse.ok) {
+                            content = await originalResponse.text();
+                            console.log('resources-original.html found and loaded');
+                        } else {
+                            // If resources-original.html doesn't exist, try resources.html
+                            console.log('resources-original.html not found, trying resources.html');
+                            const resourcesResponse = await fetch('resources.html');
+                            if (resourcesResponse.ok) {
+                                content = await resourcesResponse.text();
+                            } else {
+                                throw new Error('Could not load resources content');
+                            }
+                        }
+                        
+                        // Now encrypt the content
+                        const encryptedHtml = await StaticryptFunctions.encryptContent(content, password);
+                        
+                        // Create a download link for the encrypted file
+                        const blob = new Blob([encryptedHtml], { type: 'text/html' });
+                        const url = URL.createObjectURL(blob);
+                        
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'resources.html';
+                        a.style.display = 'none';
+                        
+                        document.body.appendChild(a);
+                        a.click();
+                        
+                        // Clean up
+                        setTimeout(() => {
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                        }, 100);
+                        
+                        showStatus(encryptStatus, 'Resources page encrypted successfully! The encrypted file has been downloaded. Replace the existing resources.html with this file.', 'success');
+                    } catch (error) {
+                        showStatus(encryptStatus, 'Error encrypting resources page: ' + error.message, 'error');
+                        console.error(error);
+                    }
+                });
+            }
+            
+            if (viewOriginalBtn) {
+                viewOriginalBtn.addEventListener('click', function() {
+                    window.open('resources-original.html', '_blank');
+                });
+            }
+            
+            if (viewEncryptedBtn) {
+                viewEncryptedBtn.addEventListener('click', function() {
+                    window.open('resources.html', '_blank');
+                });
+            }
+            
+            // Edit section buttons
+            if (loadContentBtn) {
+                loadContentBtn.addEventListener('click', async function() {
+                    try {
+                        // First try to load resources-original.html
+                        const originalResponse = await fetch('resources-original.html');
+                        let content;
+                        
+                        if (originalResponse.ok) {
+                            content = await originalResponse.text();
+                        } else {
+                            // If that fails, try resources.html
+                            const resourcesResponse = await fetch('resources.html');
+                            if (resourcesResponse.ok) {
+                                content = await resourcesResponse.text();
+                            } else {
+                                throw new Error('Could not load resources content');
+                            }
+                        }
+                        
+                        editor.value = content;
+                        showStatus(editStatus, 'Content loaded successfully.', 'success');
+                    } catch (error) {
+                        showStatus(editStatus, 'Error loading content: ' + error.message, 'error');
+                        console.error(error);
+                    }
+                });
+            }
+            
+            if (saveContentBtn) {
+                saveContentBtn.addEventListener('click', async function() {
+                    const content = editor.value.trim();
+                    
+                    if (!content) {
+                        showStatus(editStatus, 'Content cannot be empty.', 'error');
+                        return;
+                    }
+                    
+                    try {
+                        // Create a download link for the content
+                        const blob = new Blob([content], { type: 'text/html' });
+                        const url = URL.createObjectURL(blob);
+                        
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'resources-original.html';
+                        a.style.display = 'none';
+                        
+                        document.body.appendChild(a);
+                        a.click();
+                        
+                        // Clean up
+                        setTimeout(() => {
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                        }, 100);
+                        
+                        showStatus(editStatus, 'Content saved. Download started for resources-original.html. Replace the existing file with this downloaded file.', 'success');
+                    } catch (error) {
+                        showStatus(editStatus, 'Error saving content: ' + error.message, 'error');
+                        console.error(error);
+                    }
+                });
+            }
+            
+            // Preview section buttons
+            if (loadPreviewBtn) {
+                loadPreviewBtn.addEventListener('click', async function() {
+                    try {
+                        // Try to load resources-original.html
+                        const originalResponse = await fetch('resources-original.html');
+                        let content;
+                        
+                        if (originalResponse.ok) {
+                            content = await originalResponse.text();
+                        } else {
+                            // If that fails, try resources.html
+                            const resourcesResponse = await fetch('resources.html');
+                            if (resourcesResponse.ok) {
+                                content = await resourcesResponse.text();
+                            } else {
+                                throw new Error('Could not load resources content');
+                            }
+                        }
+                        
+                        // Create an iframe to display the content
+                        previewContainer.innerHTML = '<iframe id="preview-frame" style="width:100%; height:600px; border:none;"></iframe>';
+                        const iframe = document.getElementById('preview-frame');
+                        const iframeDoc = iframe.contentWindow.document;
+                        
+                        iframeDoc.open();
+                        iframeDoc.write(content);
+                        iframeDoc.close();
+                    } catch (error) {
+                        previewContainer.innerHTML = '<p class="error">Error loading preview: ' + error.message + '</p>';
+                        console.error(error);
+                    }
+                });
+            }
+            
+            // Helper functions
+            function showStatus(element, message, type) {
+                element.textContent = message;
+                element.className = 'status-message ' + type;
+                element.style.display = 'block';
+                
+                // Scroll to the message
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            // Load content on page load if on edit tab
+            if (window.location.hash === '#edit' && editor && loadContentBtn) {
+                loadContentBtn.click();
             }
         });
     </script>
