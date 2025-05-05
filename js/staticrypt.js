@@ -322,7 +322,27 @@ async function encryptResourcesPage(password) {
             }
             const fallbackContent = await fallbackResponse.text();
             const encryptedFallback = await encryptContent(fallbackContent, password);
-            return processEncryptedContent(encryptedFallback);
+            
+            // Just create the download directly since we're returning early
+            const blob = new Blob([encryptedFallback], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'resources.html';
+            a.style.display = 'none';
+            
+            document.body.appendChild(a);
+            a.click();
+            
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+            
+            console.log('Resources page encrypted successfully. Download should start automatically.');
+            return; // End function early
         }
         
         const content = await response.text();
