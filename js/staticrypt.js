@@ -310,10 +310,19 @@ function encryptContent(content, password) {
  */
 async function encryptResourcesPage(password) {
     try {
-        // Get the resources.html content
-        const response = await fetch('resources.html');
+        // Get the resources-original.html content instead of resources.html
+        // This is to ensure we always encrypt the original content
+        const response = await fetch('resources-original.html');
         if (!response.ok) {
-            throw new Error('Failed to fetch resources.html');
+            // Fallback to resources.html if resources-original.html is not available
+            console.log('resources-original.html not found, trying resources.html');
+            const fallbackResponse = await fetch('resources.html');
+            if (!fallbackResponse.ok) {
+                throw new Error('Failed to fetch resources.html or resources-original.html');
+            }
+            const fallbackContent = await fallbackResponse.text();
+            const encryptedFallback = await encryptContent(fallbackContent, password);
+            return processEncryptedContent(encryptedFallback);
         }
         
         const content = await response.text();
