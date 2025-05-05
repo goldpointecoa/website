@@ -110,28 +110,22 @@ The resources page is designed to be password-protected using StatiCrypt, which 
 
 When you need to update the content in the resources page, you have two options:
 
-#### Option 1: Using the Admin Dashboard (Recommended)
+#### Option 1: Using the Encryption Tool (Recommended)
 
-1. Navigate to the admin dashboard at `admin.html` (only available when working locally)
-2. Go to the "Edit Resources" tab
-3. Click "Load Content" to load the current resources page content
-4. Make your changes to the HTML content
-5. Click "Save Changes" to download the updated `resources-original.html` file
-6. Replace the existing `resources-original.html` with this downloaded file
-7. Go to the "Encrypt Resources" tab
-8. Enter the password (default is "goldpointe2025")
-9. Click "Encrypt Resources Page"
-10. A download will start with the encrypted version of `resources.html`
-11. Replace the existing `resources.html` file with this downloaded file
-12. Commit and push your changes to deploy the updated encrypted page
+1. Edit the `resources-original.html` file directly using your preferred code editor
+2. After making your changes, open `admin-encrypt.html` in your browser (only available when working locally)
+3. Enter the encryption password (default is "goldpointe2025")
+4. Click "Encrypt Resources Page"
+5. A download will start with the encrypted version of `resources.html`
+6. Replace the existing `resources.html` file with this downloaded file
+7. Commit and push your changes to deploy the updated encrypted page
 
-The admin dashboard makes it easy to:
-- Edit the content without editing the HTML file directly
-- Preview the resources page before encrypting it
-- Encrypt the page with one click
+The encryption tool makes it easy to:
+- Generate the encrypted version of your resources page with one click
+- Preview the original resources page before encrypting
 
-**Note about admin.html access:**
-For security reasons, the admin.html file is protected from public access through redirects in the netlify.toml file. The file will be deployed with your site, but attempts to access it on the live site will be redirected to the 404 page. It's only meant to be used when working on the site locally.
+**Note about admin-encrypt.html access:**
+For security reasons, the admin-encrypt.html file is protected from public access through redirects in the netlify.toml file. It will be deployed with your site, but attempts to access it on the live site will be redirected to the 404 page. It's only meant to be used when working on the site locally.
 
 #### Option 2: Manual Update
 
