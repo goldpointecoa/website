@@ -1,81 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protected: Resources - Gold Pointe Condo Owner's Association</title>
-    <meta name="description" content="Password-protected resources for Gold Pointe owners">
+    <title>Resources - Gold Pointe Condo Owner's Association</title>
+    <meta name="description" content="Access resources and documents for Gold Pointe Condo owners">
     <link rel="stylesheet" href="css/styles.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .password-container {
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 30px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        
-        .password-container h2 {
-            color: #1f3a5f;
-            margin-bottom: 20px;
-        }
-        
-        .password-container p {
-            margin-bottom: 25px;
-        }
-        
-        .password-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .password-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-        }
-        
-        .password-submit {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #b8860b;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .password-submit:hover {
-            background-color: #1f3a5f;
-        }
-        
-        .password-error {
-            color: #dc3545;
-            margin-top: 15px;
-            display: none;
-        }
-        
-        .back-link {
-            margin-top: 20px;
-            display: inline-block;
-            color: #1f3a5f;
-        }
-        
-        .back-link:hover {
-            color: #b8860b;
-        }
-    </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
     <header>
@@ -96,19 +28,61 @@
         </nav>
     </header>
 
-    <main>
-        <div class="password-container">
-            <h2>Owner Resources</h2>
-            <p>This page is password-protected. Please enter the password to access the resources.</p>
-            
-            <div id="password-form" class="password-form">
-                <input type="password" id="password-input" class="password-input" placeholder="Enter password" required>
-                <button type="button" id="password-submit" class="password-submit">Access Resources</button>
-                <p id="password-error" class="password-error">Incorrect password. Please try again.</p>
+    <section class="page-header">
+        <h2>Owner Resources</h2>
+    </section>
+
+    <main class="container">
+        <section class="resources-section">
+            <div class="welcome-message">
+                <h3>Welcome, Gold Pointe Owners</h3>
+                <p>This page contains resources exclusively for Gold Pointe condominium owners. Here you'll find important documents, meeting information, and useful links.</p>
             </div>
-            
-            <a href="index.html" class="back-link">Return to homepage</a>
-        </div>
+
+            <div class="resource-card">
+                <i class="fas fa-folder-open"></i>
+                <h3>Documents & Forms</h3>
+                <p>Access important association documents, including bylaws, rules and regulations, architectural guidelines, and forms.</p>
+                <a href="https://drive.google.com/drive/folders/your-folder-id" class="btn" target="_blank">Access Google Drive Folder</a>
+            </div>
+
+            <div class="resource-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Meeting Calendar</h3>
+                <p>View the schedule for upcoming board meetings, annual meetings, and community events.</p>
+                <a href="https://calendar.google.com/calendar/embed?src=your-calendar-id" class="btn" target="_blank">View Google Calendar</a>
+            </div>
+
+            <div class="resource-card">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <h3>Financial Information</h3>
+                <p>Review current and past financial statements, budgets, and assessment information.</p>
+                <ul class="resource-list">
+                    <li><a href="https://drive.google.com/drive/folders/financial-folder-id" target="_blank">Annual Budgets</a></li>
+                    <li><a href="https://drive.google.com/drive/folders/financial-folder-id" target="_blank">Financial Statements</a></li>
+                    <li><a href="https://drive.google.com/drive/folders/financial-folder-id" target="_blank">Reserve Studies</a></li>
+                </ul>
+            </div>
+
+            <div class="resource-card">
+                <i class="fas fa-book"></i>
+                <h3>Governing Documents</h3>
+                <p>Access the association's governing documents that outline rights and responsibilities.</p>
+                <ul class="resource-list">
+                    <li><a href="https://drive.google.com/file/d/cc&r-file-id" target="_blank">Declaration of CC&Rs</a></li>
+                    <li><a href="https://drive.google.com/file/d/bylaws-file-id" target="_blank">Bylaws</a></li>
+                    <li><a href="https://drive.google.com/file/d/rules-file-id" target="_blank">Rules and Regulations</a></li>
+                    <li><a href="https://drive.google.com/file/d/architectural-file-id" target="_blank">Architectural Guidelines</a></li>
+                </ul>
+            </div>
+
+            <div class="resource-card">
+                <i class="fas fa-clipboard-list"></i>
+                <h3>Meeting Minutes</h3>
+                <p>Review minutes from past board and annual meetings.</p>
+                <a href="https://drive.google.com/drive/folders/minutes-folder-id" class="btn" target="_blank">View Meeting Minutes</a>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -134,88 +108,6 @@
         </div>
     </footer>
 
-    <script>
-        // Decrypt and display the page content if the password is correct
-        document.getElementById('password-submit').addEventListener('click', function() {
-            checkPassword();
-        });
-        
-        // Allow hitting enter to submit password
-        document.getElementById('password-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
-        });
-        
-        function checkPassword() {
-            const passwordInput = document.getElementById('password-input');
-            const passwordError = document.getElementById('password-error');
-            const password = passwordInput.value;
-            
-            if (decrypt(password)) {
-                // Password is correct
-                passwordError.style.display = 'none';
-            } else {
-                // Password is incorrect
-                passwordError.style.display = 'block';
-                passwordInput.value = '';
-                passwordInput.focus();
-            }
-        }
-        
-        // Decryption function - will be injected by the StatiCrypt script
-        
-                function decrypt(password) {
-                    try {
-                        const encrypted = "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";
-                        const salt = CryptoJS.enc.Hex.parse("c1edb6bbd0d71b2ad724997525208345");
-                        const iv = CryptoJS.enc.Hex.parse("f47daf0f97c1f36a661439819f5a1f85");
-                        
-                        const key = CryptoJS.PBKDF2(password, salt, {
-                            keySize: 256 / 32,
-                            iterations: 1000
-                        });
-                        
-                        const decrypted = CryptoJS.AES.decrypt(encrypted, key, {
-                            iv: iv,
-                            padding: CryptoJS.pad.Pkcs7,
-                            mode: CryptoJS.mode.CBC
-                        });
-                        
-                        const content = decrypted.toString(CryptoJS.enc.Utf8);
-                        
-                        if (content) {
-                            // Replace entire page content with decrypted content
-                            document.open();
-                            document.write(content);
-                            document.close();
-                            return true;
-                        }
-                        return false;
-                    } catch (e) {
-                        console.error(e);
-                        return false;
-                    }
-                }
-        
-        // Mobile menu toggle functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-            
-            if (menuToggle) {
-                menuToggle.addEventListener('click', function() {
-                    navLinks.classList.toggle('active');
-                });
-            }
-            
-            // Add current year to footer copyright
-            const yearElement = document.querySelector('.footer-bottom p');
-            if (yearElement) {
-                const currentYear = new Date().getFullYear();
-                yearElement.innerHTML = yearElement.innerHTML.replace('2023', currentYear);
-            }
-        });
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
