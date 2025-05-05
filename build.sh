@@ -30,8 +30,10 @@ const password = 'goldpointe2025';
 const encrypted = CryptoJS.AES.encrypt(sourceHtml, password).toString();
 
 // Create a simple password page
-const protectedPage = \`
-<!DOCTYPE html>
+// Template literals seem to have an issue in this environment
+// Let's use string concatenation instead
+const protectedPage = 
+`<!DOCTYPE html>
 <html lang='en'>
 <head>
     <meta charset='UTF-8'>
@@ -102,7 +104,7 @@ const protectedPage = \`
         document.getElementById('password-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const password = document.getElementById('password').value;
-            const encrypted = '${encrypted}';
+            const encrypted = '` + encrypted + `';
             
             try {
                 // Try to decrypt
@@ -124,8 +126,7 @@ const protectedPage = \`
         });
     </script>
 </body>
-</html>
-\`;
+</html>`;
 
 fs.writeFileSync('public/resources.html', protectedPage);
 console.log('Resources page encrypted and saved to public/resources.html');
