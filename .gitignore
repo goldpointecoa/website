@@ -1,5 +1,5 @@
-# Common system and editor files to ignore
-# The netlify.toml file handles preventing sensitive files from being accessible
+# Only exclude common system/development files
+# (sensitive files are protected by Netlify redirects, not by .gitignore)
 
 # Other common files to ignore
 .DS_Store
