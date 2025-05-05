@@ -1,34 +1,4 @@
-#!/bin/bash
 
-# Create public directory
-mkdir -p public
-mkdir -p public/css
-mkdir -p public/js
-
-# Copy CSS and JS
-cp -r css/* public/css/
-cp -r js/* public/js/
-
-# Copy necessary files
-cp index.html about.html contact.html contact-success.html 404.html public/
-cp -f *.png *.ico *.svg public/ 2>/dev/null || true
-cp -f _redirects netlify.toml public/
-
-# Use resources-original.html as the source and encrypt it for the public directory
-echo "Encrypting resources page with password: goldpointe2025"
-node -e "
-const fs = require('fs');
-const CryptoJS = require('crypto-js');
-
-// Read resources-original.html
-const sourceHtml = fs.readFileSync('resources-original.html', 'utf8');
-const password = 'goldpointe2025';
-
-// Simple encryption for demo purpose - in production use proper StaticryptJS
-const encrypted = CryptoJS.AES.encrypt(sourceHtml, password).toString();
-
-// Create a simple password page
-const protectedPage = \`
 <!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -99,7 +69,7 @@ const protectedPage = \`
         document.getElementById('password-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const password = document.getElementById('password').value;
-            const encrypted = '${encrypted}';
+            const encrypted = '';
             
             try {
                 // Try to decrypt
@@ -122,10 +92,3 @@ const protectedPage = \`
     </script>
 </body>
 </html>
-\`;
-
-fs.writeFileSync('public/resources.html', protectedPage);
-console.log('Resources page encrypted and saved to public/resources.html');
-" || echo "Warning: Failed to encrypt resources page"
-
-echo "Build completed successfully!"

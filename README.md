@@ -141,9 +141,10 @@ For security reasons, the admin.html file is excluded from the production build 
 
 #### Important Notes About Resources Page Updates
 
-- The file `resources-original.html` contains the unencrypted content and is protected in production by Netlify redirects (visitors who try to access it will see the 404 page)
-- The file `resources.html` is the encrypted version that visitors see on your website
-- Always keep a backup of `resources-original.html` to make future updates easier
+- The file `resources-original.html` contains the unencrypted content (your source file)
+- During deployment, the build script automatically encrypts this file and places it in the `public` directory
+- Only files in the `public` directory are deployed to the live site
+- The admin panel and original resources file remain in your Git repository but are not deployed
 
 ## Netlify Form Integration
 
@@ -184,7 +185,9 @@ The simplest way to deploy this website is through Netlify:
 2. Click "New site from Git"
 3. Select your Git provider (GitHub, GitLab, etc.)
 4. Select the repository for this website
-5. Configure build settings (not needed for this static site; leave defaults)
+5. Configure build settings:
+   - Build command: `./build.sh`
+   - Publish directory: `public`
 6. Click "Deploy site"
 
 Your site will be deployed to a Netlify subdomain (e.g., `your-site-name.netlify.app`). You can connect a custom domain in the Netlify settings.
