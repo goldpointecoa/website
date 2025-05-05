@@ -44,7 +44,7 @@
 
 # Build configuration
 [build]
-  publish = "."
+  publish = "/"
   command = ""
 
 # Exclude admin tools and original resources file from sitemap
