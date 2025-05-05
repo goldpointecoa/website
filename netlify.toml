@@ -9,25 +9,32 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# Redirect rules for SPA-like navigation (if needed)
+# Redirect rules for SPA-like navigation
 [[redirects]]
   from = "/contact-success"
   to = "/contact-success.html"
   status = 200
 
-# Exclude admin/utility files from deployment
+# Password protection for admin interface
+[[redirects]]
+  from = "/admin.html"
+  to = "/admin.html"
+  status = 200
+  force = true
+  conditions = {Role = ["admin"]}
+
+# Build configuration
 [build]
   publish = "."
   command = ""
 
-# Explicitly exclude admin files and resources-original.html from deployment
+# Exclude original resources file from sitemap but allow admin.html
 [[plugins]]
   package = "@netlify/plugin-sitemap"
 
   [plugins.inputs]
     exclude = [
       "resources-original.html",
-      "admin.html",
       "admin-encrypt.html",
       "encrypt-resources.js"
     ]

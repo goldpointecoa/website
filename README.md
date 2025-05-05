@@ -129,6 +129,19 @@ The admin dashboard makes it easy to:
 - Preview the resources page before encrypting it
 - Encrypt the page with one click
 
+**Note about accessing admin.html on Netlify:**
+The admin interface is password-protected on Netlify using Netlify Identity and Role-based access control. To set it up:
+
+1. After deploying to Netlify, go to your site's Netlify admin panel
+2. Navigate to Settings > Identity and click "Enable Identity"
+3. Under Identity > Services, enable "Git Gateway"
+4. Under Identity > Settings, set Registration to "Invite only"
+5. Invite yourself (and any other admins) via email
+6. After accepting the invitation, go to Identity > Role-based access control
+7. Create a new role called "admin" and assign it to your account
+
+After this setup, when you visit your-site.com/admin.html, you'll be prompted to login with your Netlify Identity credentials.
+
 #### Option 2: Manual Update
 
 1. Make changes to the `resources-original.html` file 
