@@ -113,15 +113,19 @@ When you need to update the content in the resources page, you have two options:
 #### Option 1: Using the Encryption Tool (Recommended)
 
 1. Edit the `resources-original.html` file directly using your preferred code editor
-2. After making your changes, open `admin-encrypt.html` in your browser (only available when working locally)
-3. Enter the encryption password (default is "goldpointe2025")
-4. Click "Encrypt Resources Page"
-5. A download will start with the encrypted version of `resources.html`
-6. Replace the existing `resources.html` file with this downloaded file
-7. Commit and push your changes to deploy the updated encrypted page
+2. After making your changes, open `admin-encrypt.html` in your browser
+3. You can use either of two methods:
+   - **Manual Input method (works offline)**: Copy/paste the contents of `resources-original.html` into the text area
+   - **Auto Load method (requires server)**: Let the tool automatically load the file (only works when running on a server)
+4. Enter the encryption password (default is "goldpointe2025")
+5. Click "Encrypt Content" (or "Load & Encrypt Page" if using Auto Load)
+6. A download will start with the encrypted version of `resources.html`
+7. Replace the existing `resources.html` file with this downloaded file
+8. Commit and push your changes to deploy the updated encrypted page
 
 The encryption tool makes it easy to:
 - Generate the encrypted version of your resources page with one click
+- Work offline by pasting content directly
 - Preview the original resources page before encrypting
 
 **Note about admin-encrypt.html access:**

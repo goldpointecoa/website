@@ -85,6 +85,39 @@
             border-radius: 4px;
             margin-bottom: 20px;
         }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            margin-right: 5px;
+        }
+        .tab.active {
+            background-color: white;
+            border-bottom: 3px solid #0c4d6c;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            border-radius: 0 0 4px 4px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        textarea {
+            min-height: 300px;
+            font-family: monospace;
+            white-space: pre;
+            resize: vertical;
+        }
     </style>
 </head>
 <body>
@@ -93,23 +126,47 @@
         
         <div class="instructions">
             <h2>How to use this tool</h2>
+            <p>This tool helps you encrypt the contents of your resources page. You can either:</p>
             <ol>
-                <li>Make your changes to the <code>resources-original.html</code> file</li>
-                <li>Enter the password below (default is "goldpointe2025")</li>
-                <li>Click "Encrypt Resources Page" to create the encrypted version</li>
-                <li>A download will start with the encrypted <code>resources.html</code> file</li>
-                <li>Upload the downloaded file to your website to replace the existing <code>resources.html</code></li>
+                <li>Paste the HTML content from resources-original.html directly into the text area</li>
+                <li>Or try to load the content automatically from resources-original.html (requires server)</li>
             </ol>
+            <p>After encrypting, you'll download a file that you can use to replace your existing resources.html file.</p>
         </div>
         
-        <div class="form-group">
-            <label for="password">Password for Resources Page:</label>
-            <input type="password" id="password" value="goldpointe2025">
+        <div class="tabs">
+            <div class="tab active" data-tab="manual">Manual Input</div>
+            <div class="tab" data-tab="auto">Auto Load</div>
         </div>
         
-        <div class="form-group">
-            <button id="encrypt-btn">Encrypt Resources Page</button>
-            <button id="view-original-btn" class="btn-secondary">View Original Resources</button>
+        <div id="manual-tab" class="tab-content active">
+            <div class="form-group">
+                <label for="html-content">Paste the HTML content from resources-original.html:</label>
+                <textarea id="html-content" placeholder="Paste the HTML content here..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="manual-password">Password for Resources Page:</label>
+                <input type="password" id="manual-password" value="goldpointe2025">
+            </div>
+            
+            <div class="form-group">
+                <button id="manual-encrypt-btn">Encrypt Content</button>
+            </div>
+        </div>
+        
+        <div id="auto-tab" class="tab-content">
+            <p>This method attempts to load resources-original.html from the server. It may not work if you're using the file locally or if the server isn't running.</p>
+            
+            <div class="form-group">
+                <label for="auto-password">Password for Resources Page:</label>
+                <input type="password" id="auto-password" value="goldpointe2025">
+            </div>
+            
+            <div class="form-group">
+                <button id="auto-encrypt-btn">Load & Encrypt Page</button>
+                <button id="view-original-btn" class="btn-secondary">View Original Resources</button>
+            </div>
         </div>
         
         <div id="status" class="status"></div>
@@ -117,14 +174,84 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const encryptBtn = document.getElementById('encrypt-btn');
+            // Tab switching
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Hide all tab content
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Show the corresponding tab content
+                    const tabId = this.getAttribute('data-tab') + '-tab';
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Manual encryption
+            const manualEncryptBtn = document.getElementById('manual-encrypt-btn');
+            const htmlContentTextarea = document.getElementById('html-content');
+            const manualPasswordInput = document.getElementById('manual-password');
+            
+            manualEncryptBtn.addEventListener('click', async function() {
+                const content = htmlContentTextarea.value.trim();
+                const password = manualPasswordInput.value.trim();
+                
+                if (!content) {
+                    showStatus('Please paste the HTML content.', 'error');
+                    return;
+                }
+                
+                if (!password) {
+                    showStatus('Please enter a password.', 'error');
+                    return;
+                }
+                
+                showStatus('Encrypting content...', 'success');
+                
+                try {
+                    // Encrypt the content
+                    const encryptedHtml = await StaticryptFunctions.encryptContent(content, password);
+                    
+                    // Create a download link for the encrypted file
+                    const blob = new Blob([encryptedHtml], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'resources.html';
+                    a.style.display = 'none';
+                    
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    // Clean up
+                    setTimeout(() => {
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    }, 100);
+                    
+                    showStatus('Content encrypted successfully! The encrypted file has been downloaded.', 'success');
+                } catch (error) {
+                    showStatus('Error: ' + error.message, 'error');
+                    console.error(error);
+                }
+            });
+            
+            // Auto load and encryption
+            const autoEncryptBtn = document.getElementById('auto-encrypt-btn');
             const viewOriginalBtn = document.getElementById('view-original-btn');
-            const passwordInput = document.getElementById('password');
+            const autoPasswordInput = document.getElementById('auto-password');
             const statusDiv = document.getElementById('status');
             
-            // Handle encryption
-            encryptBtn.addEventListener('click', async function() {
-                const password = passwordInput.value.trim();
+            autoEncryptBtn.addEventListener('click', async function() {
+                const password = autoPasswordInput.value.trim();
                 
                 if (!password) {
                     showStatus('Please enter a password.', 'error');
@@ -138,10 +265,13 @@
                     const response = await fetch('resources-original.html');
                     
                     if (!response.ok) {
-                        throw new Error('Could not load resources-original.html. Make sure the file exists.');
+                        throw new Error('Could not load resources-original.html. Make sure the file exists and the server is running.');
                     }
                     
                     const content = await response.text();
+                    
+                    // Fill the textarea in the manual tab with the loaded content
+                    htmlContentTextarea.value = content;
                     
                     // Encrypt the content
                     const encryptedHtml = await StaticryptFunctions.encryptContent(content, password);
@@ -164,9 +294,9 @@
                         URL.revokeObjectURL(url);
                     }, 100);
                     
-                    showStatus('Resources page encrypted successfully! The encrypted file has been downloaded.', 'success');
+                    showStatus('Resources page encrypted successfully! The encrypted file has been downloaded. You can also switch to Manual Input tab to see the loaded content.', 'success');
                 } catch (error) {
-                    showStatus('Error: ' + error.message, 'error');
+                    showStatus('Error: ' + error.message + '. Try using the Manual Input tab instead.', 'error');
                     console.error(error);
                 }
             });
@@ -181,6 +311,9 @@
                 statusDiv.textContent = message;
                 statusDiv.className = 'status ' + type;
                 statusDiv.style.display = 'block';
+                
+                // Scroll to status message
+                statusDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         });
     </script>
