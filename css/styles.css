@@ -143,6 +143,10 @@ header {
     font-size: 1.8rem;
 }
 
+.logo h1 a {
+    color: var(--primary-color);
+}
+
 .logo p {
     color: var(--secondary-color);
     font-size: 0.9rem;
