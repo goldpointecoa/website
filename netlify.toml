@@ -36,11 +36,12 @@
   to = "/contact-success.html"
   status = 200
 
-# Custom 404 page configuration
+# Custom 404 page configuration - only for paths that don't exist
 [[redirects]]
   from = "/*"
   to = "/404.html"
   status = 404
+  force = false
 
 # Build configuration
 # Note: Publish directory is the root since all files are already built
