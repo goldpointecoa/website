@@ -195,9 +195,9 @@ nav {
 /* HERO SECTION */
 /* ----------- */
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/random/1600x900/?condominium');
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('../images/goldpointe-aerial.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: center top;
     height: 500px;
     display: flex;
     align-items: center;
@@ -292,25 +292,76 @@ nav {
 /* ----------- */
 .info-section {
     padding: var(--spacing-xl) 5%;
-    background-color: var(--light-gray);
+    background-color: white;
+    background-image: linear-gradient(135deg, rgba(184, 134, 11, 0.05) 0%, rgba(255, 255, 255, 0.8) 100%);
     text-align: center;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .info-section h2 {
     margin-bottom: var(--spacing-lg);
     color: var(--secondary-color);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.info-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.info-section p {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-lg);
+    line-height: 1.8;
 }
 
 .info-section ul {
-    max-width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-md);
+    max-width: 800px;
     margin: 0 auto var(--spacing-lg);
     text-align: left;
-    list-style-type: disc;
-    padding-left: var(--spacing-xl);
+    list-style-type: none;
+    padding: 0;
 }
 
 .info-section li {
-    margin-bottom: var(--spacing-sm);
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    flex: 1 1 200px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 40px;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.info-section li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info-section li::before {
+    content: '✓';
+    position: absolute;
+    left: 15px;
+    color: var(--primary-color);
+    font-weight: bold;
 }
 
 /* ----------- */
