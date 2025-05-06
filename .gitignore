@@ -1,6 +1,7 @@
 # Common system and editor files to ignore
 resources-original.html
 admin-encrypt.html
+README.md
 
 # Other common files to ignore
 .DS_Store
