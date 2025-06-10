@@ -74,6 +74,14 @@
                         </select>
                     </div>
                     
+                    <div class="form-group" id="reservation-details" style="display: none;">
+                        <label for="reservation_date">Preferred Reservation Date</label>
+                        <input type="date" id="reservation_date" name="reservation_date">
+                        
+                        <label for="reservation_time" style="margin-top: 15px;">Preferred Time</label>
+                        <input type="time" id="reservation_time" name="reservation_time">
+                    </div>
+                    
                     <div class="form-group">
                         <label for="resident_type">Resident Type</label>
                         <select id="resident_type" name="resident_type" required>
@@ -145,6 +153,28 @@
                     // Scroll to the success message
                     successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
+            }
+            
+            // Show/hide reservation details based on subject selection
+            const subjectSelect = document.getElementById('subject');
+            const reservationDetails = document.getElementById('reservation-details');
+            const reservationDate = document.getElementById('reservation_date');
+            const reservationTime = document.getElementById('reservation_time');
+            
+            if (subjectSelect && reservationDetails) {
+                subjectSelect.addEventListener('change', function() {
+                    if (this.value === 'Clubhouse Reservation') {
+                        reservationDetails.style.display = 'block';
+                        reservationDate.required = true;
+                        reservationTime.required = true;
+                    } else {
+                        reservationDetails.style.display = 'none';
+                        reservationDate.required = false;
+                        reservationTime.required = false;
+                        reservationDate.value = '';
+                        reservationTime.value = '';
+                    }
+                });
             }
         });
     </script>
