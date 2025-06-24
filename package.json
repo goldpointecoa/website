@@ -1,7 +1,7 @@
 {
   "name": "workspace",
   "version": "1.0.0",
-  "description": "This repository contains the source code for the official website of Gold Pointe Condo Owner's Association. The website is designed to be simple, static, and easily deployable on platforms like GitHub Pages and Netlify.",
+  "description": "This repository contains the source code for the official website of Gold Pointe Condo Owners Association. The website is designed to be simple, static, and easily deployable on platforms like GitHub Pages and Netlify.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

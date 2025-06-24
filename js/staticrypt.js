@@ -16,7 +16,7 @@ const templateHtml = `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protected: Resources - Gold Pointe Condo Owner's Association</title>
+    <title>Protected: Resources - Gold Pointe Condo Owners Association</title>
     <meta name="description" content="Password-protected resources for Gold Pointe owners">
     <link rel="stylesheet" href="css/styles.css">
     <!-- Font Awesome for icons -->
@@ -92,7 +92,7 @@ const templateHtml = `
     <header>
         <div class="logo">
             <h1>Gold Pointe</h1>
-            <p>Condo Owner's Association</p>
+            <p>Condo Owners Association</p>
         </div>
         <nav>
             <button class="menu-toggle" aria-label="Toggle menu">
@@ -101,6 +101,7 @@ const templateHtml = `
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
+                <li><a href="events.html">Events</a></li>
                 <li><a href="resources.html" class="active">Resources</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -126,22 +127,21 @@ const templateHtml = `
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Gold Pointe COA</h3>
-                <p>123 Gold Avenue<br>Anytown, ST 12345</p>
-                <p>Phone: (555) 123-4567</p>
-                <p>Email: info@goldpointecoa.com</p>
+                <p>3008 N Narrows Dr.<br>Tacoma, WA 98407</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
+                    <li><a href="events.html">Events</a></li>
                     <li><a href="resources.html">Resources</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2023 Gold Pointe Condo Owner's Association. All rights reserved.</p>
+            <p>&copy; 2025 Gold Pointe Condo Owners Association. All rights reserved.</p>
         </div>
     </footer>
 

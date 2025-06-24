@@ -289,15 +289,25 @@ nav {
     gap: var(--spacing-lg);
     padding: var(--spacing-xl) 5%;
     background-color: var(--light-color);
+    align-items: stretch; /* Ensure all cards stretch to same height */
 }
 
 .feature {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    height: 100%; /* Make each card fill the grid cell */
     text-align: center;
     padding: var(--spacing-lg);
     background-color: white;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: transform var(--transition-speed) ease;
+}
+
+/* Optional: Ensure inner content fills height for visual consistency */
+.feature h3, .feature p, .feature i {
+    flex-shrink: 0;
 }
 
 .feature:hover {
@@ -720,4 +730,26 @@ footer {
     .contact-section {
         grid-template-columns: 1fr;
     }
+}
+
+/* ----------- */
+/* GOOGLE CALENDAR RESPONSIVE */
+/* ----------- */
+.calendar-responsive {
+    position: relative;
+    width: 100%;
+    padding-bottom: 75%; /* 4:3 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 900px; /* Optional: limit max width */
+    margin: 0 auto;   /* Optional: center the calendar */
+}
+
+.calendar-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }

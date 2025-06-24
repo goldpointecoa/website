@@ -1,8 +1,8 @@
-# Architecture Overview - Gold Pointe Condo Owner's Association Website
+# Architecture Overview - Gold Pointe Condo Owners Association Website
 
 ## 1. Overview
 
-The Gold Pointe Condo Owner's Association website is a static HTML website designed to provide information and resources to condominium owners. The site follows a simple, traditional web architecture with HTML, CSS, and minimal JavaScript, focusing on ease of maintenance and deployment. The site includes public-facing content as well as password-protected resources for owners.
+The Gold Pointe Condo Owners Association website is a static HTML website designed to provide information and resources to condominium owners. The site follows a simple, traditional web architecture with HTML, CSS, and minimal JavaScript, focusing on ease of maintenance and deployment. The site includes public-facing content as well as password-protected resources for owners.
 
 ## 2. System Architecture
 

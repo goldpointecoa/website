@@ -1,258 +1,223 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>
-            Protected: Resources - Gold Pointe Condominium Owners Association
-        </title>
-        <meta
-            name="description"
-            content="Password-protected resources for Gold Pointe owners"
-        />
-        <link rel="stylesheet" href="css/styles.css" />
-        <link rel="icon" type="image/png" href="images/favicon.png" />
-        <!-- Font Awesome for icons -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        />
-        <style>
-            .password-container {
-                max-width: 400px;
-                margin: 100px auto;
-                padding: 30px;
-                background-color: #fff;
-                border-radius: 5px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                text-align: center;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protected: Resources - Gold Pointe Condo Owners Association</title>
+    <meta name="description" content="Password-protected resources for Gold Pointe owners">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .password-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .password-container h2 {
+            color: #1f3a5f;
+            margin-bottom: 20px;
+        }
+        
+        .password-container p {
+            margin-bottom: 25px;
+        }
+        
+        .password-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+        
+        .password-submit {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #b8860b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .password-submit:hover {
+            background-color: #1f3a5f;
+        }
+        
+        .password-error {
+            color: #dc3545;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+            color: #1f3a5f;
+        }
+        
+        .back-link:hover {
+            color: #b8860b;
+        }
+    </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Gold Pointe</h1>
+            <p>Condo Owners Association</p>
+        </div>
+        <nav>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="resources.html" class="active">Resources</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-            .password-container h2 {
-                color: #1f3a5f;
-                margin-bottom: 20px;
-            }
-
-            .password-container p {
-                margin-bottom: 25px;
-            }
-
-            .password-form {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .password-input {
-                width: 100%;
-                padding: 10px;
-                margin-bottom: 15px;
-                border: 1px solid #dee2e6;
-                border-radius: 4px;
-            }
-
-            .password-submit {
-                display: inline-block;
-                padding: 10px 20px;
-                background-color: #b8860b;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-
-            .password-submit:hover {
-                background-color: #1f3a5f;
-            }
-
-            .password-error {
-                color: #dc3545;
-                margin-top: 15px;
-                display: none;
-            }
-
-            .back-link {
-                margin-top: 20px;
-                display: inline-block;
-                color: #1f3a5f;
-            }
-
-            .back-link:hover {
-                color: #b8860b;
-            }
-        </style>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    </head>
-    <body>
-        <header>
-            <div class="logo">
-                <h1><a href="index.html">Gold Pointe</a></h1>
-                <p>Condominium Owners Association</p>
+    <main>
+        <div class="password-container">
+            <h2>Owner Resources</h2>
+            <p>This page is password-protected. Please enter the password to access the resources.</p>
+            
+            <div id="password-form" class="password-form">
+                <input type="password" id="password-input" class="password-input" placeholder="Enter password" required>
+                <button type="button" id="password-submit" class="password-submit">Access Resources</button>
+                <p id="password-error" class="password-error">Incorrect password. Please try again.</p>
             </div>
-            <nav>
-                <button class="menu-toggle" aria-label="Toggle menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li>
-                        <a href="resources.html" class="active">Resources</a>
-                    </li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <main>
-            <div class="password-container">
-                <h2>Owner Resources</h2>
-                <p>
-                    This page is password-protected. Please enter the password
-                    to access the resources.
-                </p>
-
-                <div id="password-form" class="password-form">
-                    <input
-                        type="password"
-                        id="password-input"
-                        class="password-input"
-                        placeholder="Enter password"
-                        required
-                    />
-                    <button
-                        type="button"
-                        id="password-submit"
-                        class="password-submit"
-                    >
-                        Access Resources
-                    </button>
-                    <p id="password-error" class="password-error">
-                        Incorrect password. Please try again.
-                    </p>
-                </div>
-
-                <a href="index.html" class="back-link">Return to homepage</a>
-            </div>
-        </main>
+            
+            <a href="index.html" class="back-link">Return to homepage</a>
+        </div>
+    </main>
 
     <footer>
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Gold Pointe COA</h3>
-                <p>3008 N Narrows Dr.<br>Tacoma, WA 98407</p>
+                <p>123 Gold Avenue<br>Anytown, ST 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldpointecoa.com</p>
             </div>
             <div class="footer-section">
-                <h3>Sitemap</h3>
+                <h3>Quick Links</h3>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
+                    <li><a href="events.html">Events</a></li>
                     <li><a href="resources.html">Resources</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Gold Pointe Condominium Owners Association. All rights reserved.</p>
+            <p>&copy; 2023 Gold Pointe Condo Owners Association. All rights reserved.</p>
         </div>
     </footer>
 
-        <script>
-            // Decrypt and display the page content if the password is correct
-            document
-                .getElementById("password-submit")
-                .addEventListener("click", function () {
-                    checkPassword();
-                });
-
-            // Allow hitting enter to submit password
-            document
-                .getElementById("password-input")
-                .addEventListener("keypress", function (e) {
-                    if (e.key === "Enter") {
-                        checkPassword();
-                    }
-                });
-
-            function checkPassword() {
-                const passwordInput = document.getElementById("password-input");
-                const passwordError = document.getElementById("password-error");
-                const password = passwordInput.value;
-
-                if (decrypt(password)) {
-                    // Password is correct
-                    passwordError.style.display = "none";
-                } else {
-                    // Password is incorrect
-                    passwordError.style.display = "block";
-                    passwordInput.value = "";
-                    passwordInput.focus();
-                }
+    <script>
+        // Decrypt and display the page content if the password is correct
+        document.getElementById('password-submit').addEventListener('click', function() {
+            checkPassword();
+        });
+        
+        // Allow hitting enter to submit password
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
             }
-
-            // Decryption function - will be injected by the StatiCrypt script
-
-            function decrypt(password) {
-                try {
-                    const encrypted =
-                        "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";
-                    const salt = CryptoJS.enc.Hex.parse(
-                        "d51a135223a04a89cff9a46ca9ec43ca",
-                    );
-                    const iv = CryptoJS.enc.Hex.parse(
-                        "1023e699f5b717c6b516c22ad091bfa8",
-                    );
-
-                    const key = CryptoJS.PBKDF2(password, salt, {
-                        keySize: 256 / 32,
-                        iterations: 1000,
-                    });
-
-                    const decrypted = CryptoJS.AES.decrypt(encrypted, key, {
-                        iv: iv,
-                        padding: CryptoJS.pad.Pkcs7,
-                        mode: CryptoJS.mode.CBC,
-                    });
-
-                    const content = decrypted.toString(CryptoJS.enc.Utf8);
-
-                    if (content) {
-                        // Replace entire page content with decrypted content
-                        document.open();
-                        document.write(content);
-                        document.close();
-                        return true;
-                    }
-                    return false;
-                } catch (e) {
-                    console.error(e);
-                    return false;
-                }
+        });
+        
+        function checkPassword() {
+            const passwordInput = document.getElementById('password-input');
+            const passwordError = document.getElementById('password-error');
+            const password = passwordInput.value;
+            
+            if (decrypt(password)) {
+                // Password is correct
+                passwordError.style.display = 'none';
+            } else {
+                // Password is incorrect
+                passwordError.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
             }
-
-            // Mobile menu toggle functionality
-            document.addEventListener("DOMContentLoaded", function () {
-                const menuToggle = document.querySelector(".menu-toggle");
-                const navLinks = document.querySelector(".nav-links");
-
-                if (menuToggle) {
-                    menuToggle.addEventListener("click", function () {
-                        navLinks.classList.toggle("active");
-                    });
+        }
+        
+        // Decryption function - will be injected by the StatiCrypt script
+        
+                function decrypt(password) {
+                    try {
+                        const encrypted = "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";
+                        const salt = CryptoJS.enc.Hex.parse("d1eef3b7590375f9ab6cdbb87677b0b7");
+                        const iv = CryptoJS.enc.Hex.parse("666862d5722c4305cf48cc206aa9070b");
+                        
+                        const key = CryptoJS.PBKDF2(password, salt, {
+                            keySize: 256 / 32,
+                            iterations: 1000
+                        });
+                        
+                        const decrypted = CryptoJS.AES.decrypt(encrypted, key, {
+                            iv: iv,
+                            padding: CryptoJS.pad.Pkcs7,
+                            mode: CryptoJS.mode.CBC
+                        });
+                        
+                        const content = decrypted.toString(CryptoJS.enc.Utf8);
+                        
+                        if (content) {
+                            // Replace entire page content with decrypted content
+                            document.open();
+                            document.write(content);
+                            document.close();
+                            return true;
+                        }
+                        return false;
+                    } catch (e) {
+                        console.error(e);
+                        return false;
+                    }
                 }
-
-                // Add current year to footer copyright
-                const yearElement = document.querySelector(".footer-bottom p");
-                if (yearElement) {
-                    const currentYear = new Date().getFullYear();
-                    yearElement.innerHTML = yearElement.innerHTML.replace(
-                        "2023",
-                        currentYear,
-                    );
-                }
-            });
-        </script>
-    </body>
+        
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
+            }
+            
+            // Add current year to footer copyright
+            const yearElement = document.querySelector('.footer-bottom p');
+            if (yearElement) {
+                const currentYear = new Date().getFullYear();
+                yearElement.innerHTML = yearElement.innerHTML.replace('2023', currentYear);
+            }
+        });
+    </script>
+</body>
 </html>

@@ -3,42 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found - Gold Pointe Condominium Owners Association</title>
-    <meta name="description" content="Page not found - Gold Pointe Condominium Owners Association">
+    <title>Events - Gold Pointe Condominium Owners Association</title>
+    <meta name="description" content="Gold Pointe Condominium events and clubhouse bookings.">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .error-section {
-            text-align: center;
-            padding: 4rem 1rem;
-        }
-        
-        .error-code {
-            font-size: 8rem;
-            color: var(--primary-color);
-            margin: 0;
-            line-height: 1;
-        }
-        
-        .error-message {
-            font-size: 2rem;
-            margin: 1rem 0 2rem;
-        }
-        
-        .error-description {
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            color: #666;
-        }
-        
-        .error-icon {
-            font-size: 5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -53,22 +23,22 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="events.html">Events</a></li>
+                <li><a href="events.html" class="active">Events</a></li>
                 <li><a href="resources.html">Resources</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section class="error-section">
-            <i class="fas fa-map-signs error-icon"></i>
-            <h1 class="error-code">404</h1>
-            <h2 class="error-message">Page Not Found</h2>
-            <p class="error-description">
-                We can't seem to find the page you're looking for. It might have been moved, deleted, or never existed.
-            </p>
-            <a href="index.html" class="btn">Return to Homepage</a>
+    <section class="page-header">
+        <h2>Gold Pointe Events</h2>
+    </section>
+
+    <main class="container">
+        <section class="about-section">
+            <div class="calendar-responsive">
+                <iframe src="https://calendar.google.com/calendar/embed?src=goldpointecoa%40gmail.com&ctz=America%2FLos_Angeles" style="border: 0" frameborder="0" scrolling="no"></iframe>
+            </div>
         </section>
     </main>
 
